@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+   </head>
+   <body>
+      <script>
+         // 확인: 사용자가 입력한 값을 변수에 저장
+         // 취소: null값을 변수에 저장
+         var name = prompt('당신의 이름은?')
+         console.log(name)
+
+         // prompt는 모든 값을 문자형으로 받아온다
+         // 취소 버튼을 눌러도 null은 'null' 문자형으로 받아옴
+
+         if (name) {
+            document.write('내 이름은 ' + name)
+         }
+
+         /* 
+         if (name !== '') {
+            document.write('내 이름은 ' + name)
+         } 
+            */
+      </script>
+   </body>
+</html>
