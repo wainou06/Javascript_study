@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>예제</title>
+   </head>
+   <body>
+      <input type="text" id="my_input" placeholder="텍스트를 입력하세요" />
+
+      <script>
+         const inputField = document.querySelector('#my_input')
+
+         inputField.addEventListener('input', (e) => {
+            console.log(e.target.value) //입력한 값을 가져온다
+            // console.log(e.currentTarget.value) //입력한 값을 가져온다
+         })
+      </script>
+   </body>
+</html>

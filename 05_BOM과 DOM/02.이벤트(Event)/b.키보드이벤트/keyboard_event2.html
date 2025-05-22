@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>예제</title>
+   </head>
+   <body>
+      <script>
+         const print = (event) => {
+            console.log(event) // 이벤트 객체
+
+            console.log('altKey:', event.altKey)
+            console.log('ctrlKey:', event.ctrlKey)
+            console.log('shiftKey:', event.shiftKey)
+            console.log('code:', event.code)
+            // console.log(event.KeyCode) 실행 X, 사용 X
+            console.log('key:', event.key) // keyCode 대신 권장
+         }
+
+         // 문서 전체에 이벤트를 걸었다
+         document.addEventListener('keydown', print)
+      </script>
+   </body>
+</html>
