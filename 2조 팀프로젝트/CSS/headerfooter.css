@@ -1,0 +1,82 @@
+@charset "uft-8";
+
+/* common.css => 모든 html 페이지에 공통으로 적용되는 css */
+
+@import url('./reset.css');
+
+/* 헤더 */
+header {
+   border: 10px solid #333;
+   border-radius: 10px 10px 0 0;
+   border-bottom: none;
+   padding: 10px;
+   background-color: black;
+}
+
+header h1 {
+   color: white;
+}
+
+header nav {
+   max-width: 1240px;
+   margin: 0 auto;
+}
+
+.header__right {
+   float: right;
+   user-select: none;
+}
+
+.header__right i {
+   color: white;
+}
+
+.header__left {
+   float: left;
+   user-select: none;
+}
+
+.header__left span {
+   color: white;
+}
+
+.header-container {
+   clear: both;
+   margin: 0 auto;
+}
+
+.header__menu {
+   display: flex;
+   justify-content: space-around;
+   padding-top: 10px;
+   position: relative;
+}
+
+.header__menu a {
+   color: #fff;
+}
+
+.header__menu .submenu {
+   display: none;
+   background-color: black;
+   position: absolute;
+   top: 35px;
+   z-index: 1000;
+}
+
+.header__menu .submenu li {
+   color: #fff;
+   text-align: center;
+   padding: 15px 10px;
+}
+
+.header__menu .submenu li:hover {
+   text-decoration: underline;
+}
+
+/* 푸터 */
+footer {
+   padding: 1em;
+   background-color: #333;
+   color: white;
+}

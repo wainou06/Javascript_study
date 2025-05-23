@@ -1,0 +1,26 @@
+@charset "uft-8";
+
+.main .container {
+   width: 460px;
+   height: 400px;
+   margin: 50px auto;
+   display: block;
+   text-align: center;
+   border: 1px dashed #c5c3c3;
+   border-radius: 30px;
+   background-color: white;
+}
+.main .container h2 {
+   font-size: 1.5rem;
+   padding: 40px 15px 20px 15px;
+}
+.main .container p {
+   padding: 15px;
+}
+.main .container form {
+   width: 360px;
+   height: 200px;
+   margin: 0 auto;
+   border: 1px solid #626161;
+   border-radius: 30px;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>numberGame</title>
+      <link rel="stylesheet" href="./CSS/common.css" />
+      <link rel="stylesheet" href="./CSS/number.css" />
+   </head>
+   <body>
+      <header>
+         <nav>
+            <div class="header__right">
+               <i class="fa-brands fa-bluetooth"></i>
+               <i class="fa-solid fa-wifi"></i>
+               <i class="fa-solid fa-signal"></i>
+               <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+            <div class="header__left">
+               <a href="index.html"><span>AWS</span></a>
+               <span id="time">5:03 </span>
+               <span>2조</span>
+            </div>
+            <div class="header-container">
+               <ul class="header__menu">
+                  <li><a href="rock.html">가위 바위 보</a></li>
+                  <li><a href="numberGame.html">숫자 맞추기</a></li>
+                  <li><a href="flippingcards2.html">카드 뒤집기</a></li>
+                  <li>
+                     <a href="#foot" id="team">팀원 소개</a>
+                     <ul class="submenu">
+                        <li>박인덕</li>
+                        <li>전예은</li>
+                        <li>전준모</li>
+                        <li>황민영</li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </header>
+
+      <section class="main">
+         <div class="container">
+            <h2>숫자 맞추기 게임입니다.</h2>
+            <p>1 ~ 50</p>
+            <form>
+               <p>
+                  <!-- 입력 -->
+                  <label for="num">숫자 입력: </label>
+                  <input type="text" name="num" id="num" />
+                  <input type="button" name="num" id="btn" value="확인" onclick="game()" />
+               </p>
+               <p>
+                  <!-- 횟수 -->
+                  <label for="count">시도 횟수: </label>
+                  <input type="text" name="count" id="count" />
+               </p>
+               <p>
+                  <!-- 힌트 -->
+                  <label for="hint">힌트: </label>
+                  <input type="text" name="hint" id="hint" />
+               </p>
+
+               <p>
+                  <!-- 다시하기 -->
+                  <label for="reset"></label>
+                  <input type="button" name="reset" id="reset" value="다시하기" onclick="reload()" />
+               </p>
+            </form>
+            <div id="area"></div>
+            <!-- 정답시 짜잔 -->
+         </div>
+      </section>
+
+      <script>
+         const time = document.querySelector('#time')
+         const clock = new Date()
+         const text = `${clock.getHours()}:${clock.getMinutes()}`
+
+         time.textContent = `${text}`
+         //
+         var count = 0
+         var random = Math.floor(Math.random() * (50 - 1 + 1)) + 1
+         // random에 1 ~ 50 사이의 랜덤값 저장
+
+         function game() {
+            var num1 = document.getElementById('num').value
+            if (num1 == '') {
+               alert('숫자를 입력하세요')
+            } else if (num1 == random) {
+               var area = document.getElementById('area')
+               area.innerHTML = `정답입니다!`
+            } else {
+               if (random > num1) {
+                  document.getElementById('hint').value = num1 + '보다 큽니다.'
+               } else {
+                  document.getElementById('hint').value = num1 + '보다 작습니다.'
+               }
+            }
+            document.getElementById('count').value = `시도한 횟수는 ${++count}번 입니다.`
+         }
+         function reload() {
+            history.go(0) // 새로고침
+         }
+      </script>
+   </body>
+</html>

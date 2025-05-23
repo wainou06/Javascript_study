@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <title>카드 뒤집기 게임</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./CSS/flippingcards2.css" />
+      <link rel="stylesheet" href="./CSS/headerfooter.css" />
+      <link rel="stylesheet" href="./CSS/common.css" />
+   </head>
+   <body>
+      <header>
+         <nav>
+            <div class="header__right">
+               <i class="fa-brands fa-bluetooth"></i>
+               <i class="fa-solid fa-wifi"></i>
+               <i class="fa-solid fa-signal"></i>
+               <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+            <div class="header__left">
+               <a href="index.html"><span>AWS</span></a>
+               <span id="time">5:03 </span>
+               <span>2조</span>
+            </div>
+            <div class="header-container">
+               <ul class="header__menu">
+                  <li><a href="rock.html">가위 바위 보</a></li>
+                  <li><a href="numberGame.html">숫자 맞추기</a></li>
+                  <li><a href="flippingcards2.html">카드 뒤집기</a></li>
+                  <li>
+                     <a href="#foot" id="team">팀원 소개</a>
+                     <ul class="submenu">
+                        <li>박인덕</li>
+                        <li>전예은</li>
+                        <li>전준모</li>
+                        <li>황민영</li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </header>
+      <h1 style="margin-top: 15px">🃏 카드 뒤집기 게임</h1>
+
+      <div class="controls">
+         <label for="difficulty">난이도:</label>
+         <select id="difficulty">
+            <option value="easy">쉬움</option>
+            <option value="normal" selected>보통</option>
+            <option value="hard">어려움</option>
+         </select>
+         <button id="resetBtn">다시 시작</button>
+         <label><input type="checkbox" id="toggleTimer" checked /> 제한 시간 사용</label>
+         <div id="timer">남은 시간: 60초</div>
+         <div id="score">점수: 0</div>
+         <div id="attempts">시도 횟수: 0</div>
+      </div>
+
+      <div id="game"></div>
+
+      <div id="message"></div>
+
+      <h2>🏆 랭킹</h2>
+      <ol id="rankingList" style="margin-bottom: 10px"></ol>
+
+      <footer id="foot">
+         <div class="info" style="text-align: left;">
+            <ul class="name">
+               <li>
+                  박인덕의 취미
+                  <ul>
+                     <li>수영</li>
+                     <li>등산</li>
+                  </ul>
+               </li>
+               <li>
+                  전예은의 취미
+                  <ul>
+                     <li>K 리그 경기 관람</li>
+                     <li>F1 경기 관람</li>
+                  </ul>
+               </li>
+               <li>
+                  전준모의 취미
+                  <ul>
+                     <li>농구</li>
+                     <li>일렉</li>
+                  </ul>
+               </li>
+               <li>
+                  황민영의 취미
+                  <ul>
+                     <li>그림</li>
+                     <li>유튜브 시청</li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+         <p>&copy; 2025 카드 게임</p>
+      </footer>
+
+      <script>
+         const game = document.getElementById('game')
+         const scoreDisplay = document.getElementById('score')
+         const attemptsDisplay = document.getElementById('attempts')
+         const timerDisplay = document.getElementById('timer')
+         const messageDisplay = document.getElementById('message')
+         const rankingList = document.getElementById('rankingList')
+         const resetBtn = document.getElementById('resetBtn')
+         const difficultySelect = document.getElementById('difficulty')
+         const toggleTimer = document.getElementById('toggleTimer')
+
+         const emojis = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍍', '🥝', '🥥', '🍒', '🍑']
+
+         const difficultySettings = {
+            easy: { pairs: 4, time: 60, bg: 'var(--bg-easy)' },
+            normal: { pairs: 6, time: 60, bg: 'var(--bg-normal)' },
+            hard: { pairs: 8, time: 45, bg: 'var(--bg-hard)' },
+         }
+
+         let cardsArray = []
+         let flippedCards = []
+         let matched = 0
+         let attempts = 0
+         let score = 0
+         let timeLeft = 60
+         let timer = null
+
+         const sounds = {
+            match: new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_45c3c9d9ac.mp3'),
+            mismatch: new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_6df56c1e5b.mp3'),
+            win: new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_e8e65b8ebd.mp3'),
+            lose: new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_ba3479c297.mp3'),
+         }
+
+         function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5)
+         }
+
+         function updateScore() {
+            scoreDisplay.textContent = `점수: ${score}`
+         }
+
+         function updateAttempts() {
+            attemptsDisplay.textContent = `시도 횟수: ${attempts}`
+         }
+
+         function startTimer() {
+            stopTimer()
+            timerDisplay.textContent = `남은 시간: ${timeLeft}초`
+            if (!toggleTimer.checked) return
+            timer = setInterval(() => {
+               timeLeft--
+               timerDisplay.textContent = `남은 시간: ${timeLeft}초`
+               if (timeLeft <= 0) {
+                  clearInterval(timer)
+                  sounds.lose.play()
+                  messageDisplay.textContent = '⏰ 시간 초과! 다시 시도하세요'
+               }
+            }, 1000)
+         }
+
+         function stopTimer() {
+            clearInterval(timer)
+         }
+
+         function getRankings() {
+            return JSON.parse(localStorage.getItem('rankings') || '[]')
+         }
+
+         function saveRanking(name, score) {
+            const rankings = getRankings()
+            rankings.push({ name, score })
+            rankings.sort((a, b) => b.score - a.score)
+            localStorage.setItem('rankings', JSON.stringify(rankings.slice(0, 5)))
+         }
+
+         function updateRankingUI() {
+            const rankings = getRankings()
+            rankingList.innerHTML = rankings.map((r) => `<li>${r.name}: ${r.score}점</li>`).join('')
+         }
+
+         function createCard(emoji) {
+            const card = document.createElement('div')
+            card.className = 'card hidden'
+
+            const inner = document.createElement('div')
+            inner.className = 'inner'
+
+            const front = document.createElement('div')
+            front.className = 'front'
+            front.textContent = emoji
+
+            const back = document.createElement('div')
+            back.className = 'back'
+            back.textContent = '❓'
+
+            inner.appendChild(front)
+            inner.appendChild(back)
+            card.appendChild(inner)
+
+            card.addEventListener('click', () => handleCardClick(card))
+            return card
+         }
+
+         function handleCardClick(card) {
+            if (!card.classList.contains('hidden') || flippedCards.length >= 2) return
+            card.classList.remove('hidden')
+            flippedCards.push(card)
+
+            if (flippedCards.length === 2) {
+               attempts++
+               updateAttempts()
+
+               const [c1, c2] = flippedCards
+               const e1 = c1.querySelector('.front').textContent
+               const e2 = c2.querySelector('.front').textContent
+
+               if (e1 === e2) {
+                  sounds.match.play()
+                  matched += 2
+                  score += 100
+                  updateScore()
+                  flippedCards = []
+
+                  if (matched === cardsArray.length) {
+                     stopTimer()
+                     sounds.win.play()
+                     messageDisplay.textContent = '🎉 모두 맞췄습니다! 축하합니다!'
+                     setTimeout(() => {
+                        const name = prompt('닉네임을 입력하세요:')
+                        if (name) {
+                           saveRanking(name, score)
+                           updateRankingUI()
+                        }
+                     }, 300)
+                  }
+               } else {
+                  sounds.mismatch.play()
+                  score = Math.max(0, score - 20)
+                  updateScore()
+                  setTimeout(() => {
+                     c1.classList.add('hidden')
+                     c2.classList.add('hidden')
+                     flippedCards = []
+                  }, 700)
+               }
+            }
+         }
+
+         function resetGame() {
+            const difficulty = difficultySelect.value
+            const settings = difficultySettings[difficulty]
+            document.body.style.backgroundColor = settings.bg
+
+            const selectedEmojis = shuffle([...emojis].slice(0, settings.pairs))
+            cardsArray = shuffle(selectedEmojis.flatMap((e) => [e, e]))
+
+            game.innerHTML = ''
+            cardsArray.forEach((emoji) => game.appendChild(createCard(emoji)))
+
+            flippedCards = []
+            matched = 0
+            attempts = 0
+            score = 0
+            timeLeft = settings.time
+            updateScore()
+            updateAttempts()
+            messageDisplay.textContent = ''
+            startTimer()
+            updateRankingUI()
+         }
+
+         resetBtn.addEventListener('click', resetGame)
+         difficultySelect.addEventListener('change', resetGame)
+         resetGame()
+
+         //
+         const time = document.querySelector('#time')
+         const clock = new Date()
+         const text = `${clock.getHours()}:${clock.getMinutes()}`
+
+         time.textContent = `${text}`
+      </script>
+   </body>
+</html>

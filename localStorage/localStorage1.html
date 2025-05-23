@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+   </head>
+   <body>
+      <script>
+         // 1. 문자열 저장, 불러오기
+
+         var username = prompt('이름을 입력해주세요.')
+
+         // 저장
+         localStorage.setItem('username', username)
+         localStorage.setItem('job', '학생')
+
+         // 불러오기
+         const name = localStorage.getItem('username')
+         const job = localStorage.getItem('job')
+         console.log(name)
+         console.log(job)
+
+         // 삭제
+         localStorage.removeItem('job')
+
+         // 전체삭제
+         localStorage.clear()
+      </script>
+   </body>
+</html>

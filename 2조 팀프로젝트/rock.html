@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>가위바위보</title>
+      <link rel="stylesheet" href="./CSS/rock.css" />
+      <link rel="stylesheet" href="./CSS/common.css" />
+   </head>
+   <body>
+      <header>
+         <nav>
+            <div class="header__right">
+               <i class="fa-brands fa-bluetooth"></i>
+               <i class="fa-solid fa-wifi"></i>
+               <i class="fa-solid fa-signal"></i>
+               <i class="fa-solid fa-battery-three-quarters"></i>
+            </div>
+            <div class="header__left">
+               <a href="index.html"><span>AWS</span></a>
+               <span id="time">5:03 </span>
+               <span>2조</span>
+            </div>
+            <div class="header-container">
+               <ul class="header__menu">
+                  <li><a href="rock.html">가위 바위 보</a></li>
+                  <li><a href="numberGame.html">숫자 맞추기</a></li>
+                  <li><a href="flippingcards2.html">카드 뒤집기</a></li>
+                  <li>
+                     <a href="#foot" id="team">팀원 소개</a>
+                     <ul class="submenu">
+                        <li>박인덕</li>
+                        <li>전예은</li>
+                        <li>전준모</li>
+                        <li>황민영</li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </header>
+
+      <h1 style="margin-top: 15px">컴퓨터랑 대결하는 가위✌️바위✊보✋</h1>
+      <div id="computerChoice"></div>
+
+      <div class="choices">
+         <button onclick="play('가위')">가위</button>
+         <button onclick="play('바위')">바위</button>
+         <button onclick="play('보')">보</button>
+      </div>
+
+      <div id="computerChoiceText">컴퓨터의 선택은? 5초 뒤에 공개됩니다!</div>
+
+      <div id="result"></div>
+
+      <div id="scoreBoard" style="margin-top: 50px; font-size: 20px">승리: <span id="win">0</span> / 패배: <span id="lose">0</span> / 비김: <span id="draw">0</span></div>
+
+      <div class="restart" style="margin-bottom: 20px">
+         <button onclick="restartGame()" id="restart-btn">다시 하기</button>
+      </div>
+
+      <!-- -------------------------------------------------- -->
+      <script>
+         const choices = ['가위', '바위', '보']
+         let computerChoice = choices[Math.floor(Math.random() * 3)]
+         let countdown = 5
+
+         const countdownElement = document.getElementById('computerChoiceText')
+
+         const gameCount = setInterval(() => {
+            if (countdown > 0) {
+               countdownElement.textContent = `컴퓨터의 선택은? ${countdown}초 뒤에 공개됩니다!`
+               countdown--
+            } else {
+               clearInterval(gameCount)
+               countdownElement.textContent = `컴퓨터의 선택: ${computerChoice}`
+            }
+         }, 1000)
+
+         let win = 0
+         let lose = 0
+         let draw = 0
+
+         function play(userChoice) {
+            let result = ' '
+
+            if (userChoice === computerChoice) {
+               result = '비겼습니다!🙌'
+               draw++
+            } else if ((userChoice === '가위' && computerChoice === '보') || (userChoice === '바위' && computerChoice === '가위') || (userChoice === '보' && computerChoice === '바위')) {
+               result = ` ${userChoice}⁉️ 결과는~ 승리🥳`
+               win++
+            } else {
+               result = ` ${userChoice}⁉️ 결과는~ 패배🙁`
+               lose++
+            }
+
+            document.getElementById('result').textContent = result
+            document.getElementById('win').textContent = win
+            document.getElementById('lose').textContent = lose
+            document.getElementById('draw').textContent = draw
+
+            computerChoice = choices[Math.floor(Math.random() * 3)]
+            countdown = 5
+            countdownElement.textContent = `컴퓨터의 선택은? ${countdown}초 뒤에 공개됩니다!`
+
+            clearInterval(gameCount)
+            setCountdownAgain()
+         }
+
+         function setCountdownAgain() {
+            const newCount = setInterval(() => {
+               if (countdown > 0) {
+                  countdownElement.textContent = `컴퓨터의 선택은? ${countdown}초 뒤에 공개됩니다!`
+                  countdown--
+               } else {
+                  clearInterval(newCount)
+                  countdownElement.textContent = `컴퓨터의 선택: ${computerChoice}`
+               }
+            }, 1000)
+         }
+
+         function restartGame() {
+            location.reload()
+         }
+
+         //
+         const time = document.querySelector('#time')
+         const clock = new Date()
+         const text = `${clock.getHours()}:${clock.getMinutes()}`
+
+         time.textContent = `${text}`
+
+         // const choices = ['가위', '바위', '보']
+         // let computerChoice = choices[Math.floor(Math.random() * 3 + 1 - 1)]
+         // let countdown = 5
+
+         // const countdownElement = document.getElementById('computerChoiceText')
+
+         // const gameCount = setInterval(() => {
+         //    if (countdown > 0) {
+         //       countdownElement.textContent = `컴퓨터의 선택은? ${countdown}초 뒤에 공개됩니다!`
+         //       countdown--
+         //    } else {
+         //       clearInterval(gameCount)
+         //       countdownElement.textContent = `컴퓨터의 선택: ${computerChoice}`
+         //    }
+         // }, 1000)
+
+         // function play(userChoice) {
+         //    let result = ' '
+         //    if (userChoice === computerChoice) {
+         //       result = '비겼습니다!🙌'
+         //    } else if ((userChoice === '가위' && computerChoice === '보') || (userChoice === '바위' && computerChoice === '가위') || (userChoice === '보' && computerChoice === '바위')) {
+         //       result = ` ${userChoice}⁉️ 결과는~ 승리🥳`
+         //    } else {
+         //       result = ` ${userChoice}⁉️ 결과는~ 패배🙁`
+         //    }
+
+         //    document.getElementById('result').textContent = result
+         // }
+
+         // function restartGame() {
+         //    location.reload()
+         // }
+      </script>
+   </body>
+</html>

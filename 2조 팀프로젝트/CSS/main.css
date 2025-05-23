@@ -1,0 +1,89 @@
+@charset "uft-8";
+
+/* 반응형 */
+
+/* 메인 */
+.wrap {
+   border: 10px solid #333;
+   border-bottom: none;
+   border-top: none;
+}
+
+.games ul {
+   display: flex;
+   flex-direction: column;
+   padding: 15px;
+}
+
+.game {
+   border-radius: 10px;
+   padding: 10px;
+   height: 120px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.games .game:not(:last-of-type) {
+   margin-bottom: 15px;
+}
+
+.game a > div {
+   display: flex;
+   align-items: center;
+}
+
+#game1 div > i {
+   font-size: 25px;
+   color: #e3c295;
+   background-color: #ffffff;
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   text-align: center;
+   line-height: 45px;
+}
+
+#game2 div > i {
+   font-size: 25px;
+   color: rgb(107, 56, 21);
+   background-color: #ffffff;
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   text-align: center;
+   line-height: 45px;
+}
+
+#game3 div > i {
+   font-size: 25px;
+   color: #ec1f1f;
+   background-color: #ffffff;
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   text-align: center;
+   line-height: 45px;
+}
+
+.game a > div .title {
+   margin: 0 10px;
+   font-size: 20px;
+   font-weight: bold;
+}
+
+@media all and (min-width: 860px) {
+   .games ul {
+      flex-direction: row;
+      justify-content: space-around;
+   }
+
+   .game {
+      flex: 1;
+      margin: 0 10px;
+   }
+
+   .games .game:not(:last-of-type) {
+      margin-bottom: 0;
+   }
+}
