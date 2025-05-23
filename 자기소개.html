@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+   </head>
+   <body>
+      <script>
+         const me = {
+             name: '황민영',
+             age: 27,
+             hoddy: ['그림', '게임', '유튜브 보기']
+             favorite: ['해산물', '스팀게임', '보드게임']
+             introduce: function () {
+                 return `안녕하세요, 제 이름은 ${this.name}이고 나이는 ${this.age}살입니다. 잘 부탁드려요!`
+             }
+             want: function () {
+                 return `저는 디자인 업무를 한 적이 있어서, CSS나 Javascript를 활용하여 웹 디자인 하는 걸 원합니다!`
+             }
+         }
+
+         document.write(me.introduce())
+         document.write(`<br/>`)
+         document.write(`${me.favorite}는 제가 좋아하는 것들입니다 ㅎㅎ`)
+         document.write(`<br/>`)
+         document.write(me.want())
+      </script>
+   </body>
+</html>
