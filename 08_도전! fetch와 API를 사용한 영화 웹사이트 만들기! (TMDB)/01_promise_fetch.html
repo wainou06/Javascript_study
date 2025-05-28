@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+   </head>
+   <body>
+      <script>
+         const options = {
+            method: 'GET', // RestFul 방식 중 get 방식으로 요청 -> Read 해줘! -> 현재 상영중인 영화를 읽게 해줘! (데이터 줘)
+            headers: {
+               // 나는 json 객체로 데이터를 받을 거야~ 라고 서버에게 전달
+               accept: 'application/json',
+               // 보안을 위해서 서버에 같이 전달하는 인증키
+               Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDcwNWEyYmU5YjIzNDEwOGJiZDk0YWUyZmI0YzY1MCIsIm5iZiI6MTc0ODM5NDEwNi4wODUsInN1YiI6IjY4MzY2MDdhYTYzOWZjZjE3MzJiN2ZiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gyUEvGOYOabeUzNfyepWmVmiv2l3QTFib7WdNZQ33JE',
+            },
+         }
+
+         // fetch: 서버에 request를 요청하는 자바스크립트에서 제공하는 함수
+         // fetch(request 주소, request 할때 서버에 같이 전달되는 옵션)
+         // 물음표 뒤는 쿼리스트링: 서버에 보내는 값들(주소에 노출해서 보내는 값 - get 방식)
+         fetch('https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1&region=KR', options)
+            .then((res) => {
+               console.log('res: ', res) // response 정보 + 영화데이터
+               return res.json() // 실제 영화데이터만 리턴
+            })
+            .then((res) => console.log(res)) // 실제 영화데이터
+            .catch((err) => console.error(err)) // request 할때 문제 발생시 실행
+      </script>
+   </body>
+</html>
