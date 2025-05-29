@@ -107,11 +107,11 @@ const getDetailtv = async (tvDetailUrl) => {
       const imgSrc = `https://image.tmdb.org/t/p/w300${data.poster_path}`
 
       const rowHtml = `
-      <div class="row">
+      <div class="row tvcon">
       <div class="col-sm-3" style="text-align:center">
       <img src="${imgSrc}" alt="${data.name}" class="poster-detail" style="max-width:100%"/>
       </div>
-      <div class="col-sm-9 tv-detail">
+      <div class="col-sm-6 tv-detail">
       <h2>${data.name}</h2>
       <ul class="tv-info">
       <li>원제 ${data.original_name}, ${data.original_language === 'ko' ? '한국어' : '외국어'}</li>
@@ -129,17 +129,21 @@ const getDetailtv = async (tvDetailUrl) => {
 
       const series = data.seasons
 
-      let colHtml = `<div class="row" style="margin-top:30px">`
+      let colHtml = `
+      <div class="row tvcon" style="margin-top:30px; ">
+      <ul class="series">`
 
       for (let i = 0; i < series.length; i++) {
          colHtml += `
+         <li class="col-sm-9 p-1">
          <a href="#">
          ${series[i].name}(평점 ${Number(series[i].vote_average) === 0 ? '미반영' : series[i].vote_average})보러가기 - ${series[i].air_date} 방영
          </a>
+         </li>
          `
       }
 
-      colHtml += `</div>`
+      colHtml += `</ul></div>`
 
       mainContainer.innerHTML += rowHtml + colHtml
 
