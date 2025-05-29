@@ -31,3 +31,66 @@ footer {
 main .container {
    padding: 40px 0;
 }
+
+/* 카드 크기 안 맞는 부분 수정 */
+
+main .container .row .card {
+   height: 100%;
+}
+
+main .container .row .card a {
+   height: 80%;
+}
+
+main .container .row .card img {
+   height: 100%;
+   object-fit: cover;
+}
+
+/* detail.html */
+
+main .container .movie-detail > ul.movie-info,
+p {
+   margin-bottom: 10px !important;
+}
+
+main .container ul.movie-info {
+   display: flex;
+}
+
+main .container ul.movie-info li {
+   padding-right: 13px;
+}
+
+/* TVseries.html */
+
+#tv-card {
+   flex-direction: row;
+}
+
+#tv-card a {
+   height: 100%;
+   padding: 10px;
+}
+
+/* 반응형 UI 문제 해결 */
+
+/* 576px ~ 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+   /* 상세 페이지 포스터가 작아지는 문제 해결 */
+   .col-sm-9 {
+      width: 60%;
+   }
+   .col-sm-3 {
+      width: 40%;
+   }
+
+   /* 상세페이지 글자가 2줄이 되는 문제 해결 */
+   main .container ul.movie-info {
+      display: initial; /* flex 해제 */
+   }
+
+   main .container ul.movie-info li {
+      padding-bottom: 10px;
+   }
+}
