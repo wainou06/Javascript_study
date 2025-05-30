@@ -42,7 +42,7 @@ const getDetailmovie = async (movieDetailUrl) => {
                         <li>${data.runtime}분</li>
                      </ul>
                      <p>평점 ${Number(data.vote_average) === 0 ? '미반영' : data.vote_average.toFixed(1)}</p>
-                     <p>${data.overview}</p>
+                     <p style="text-align: justify;">${data.overview}</p>
                   </div>
                </div>
                 `
@@ -121,7 +121,7 @@ const getDetailtv = async (tvDetailUrl) => {
       </ul>
       
       <p>줄거리</p>
-      <p>${data.overview}</p>
+      <p style="text-align: justify;">${data.overview}</p>
       </div>
       </div>
       `
@@ -137,7 +137,7 @@ const getDetailtv = async (tvDetailUrl) => {
          colHtml += `
          <li class="col-sm-9 p-1">
          <a href="#">
-         ${series[i].name}(평점 ${Number(series[i].vote_average) === 0 ? '미반영' : series[i].vote_average})보러가기 - ${series[i].air_date} 방영
+         ${series[i].name}(평점 ${Number(series[i].vote_average) === 0 ? '미반영' : series[i].vote_average})보러가기 - ${series[i].air_date === null ? '제작 중' : series[i].air_date + ' 방영'}
          </a>
          </li>
          `

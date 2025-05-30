@@ -32,6 +32,13 @@ main .container {
    padding: 40px 0;
 }
 
+/* index.html */
+
+main .container .row {
+   justify-content: center;
+   width: 100%;
+}
+
 /* 카드 크기 안 맞는 부분 수정 */
 
 main .container .row .card {
@@ -60,6 +67,7 @@ main .container ul.movie-info {
 
 main .container ul.movie-info li {
    padding-right: 13px;
+   
 }
 
 /* TV detail */
@@ -126,5 +134,15 @@ main .container .series {
 
    main .container ul.movie-info li {
       padding-bottom: 10px;
+   }
+}
+
+@media (min-width: 340px) and (max-width: 575px) {
+   main .container .row {
+      margin-left: 0 !important;
+   }
+   .tv-detail, .movie-detail {
+      width: 75%;
+      margin-top: 15px;
    }
 }
