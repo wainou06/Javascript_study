@@ -30,7 +30,7 @@ const getPopularTv = async (url) => {
             rowHtml += `
              <div class="col-sm-6 p-3">
                      <div class="card" id="tv-card">
-                        <a href="detail.html?series_id=${tv.id}">
+                        <a href="TVdetail.html?series_id=${tv.id}">
                            <img src="https://image.tmdb.org/t/p/w500${tv.poster_path}" class="card-img-top poster" alt="${tv.name}"  />
                         </a>
                         <div class="card-body">
@@ -42,7 +42,6 @@ const getPopularTv = async (url) => {
                      </div>
                 </div>
              `
-            console.log(tv)
          }
 
          rowHtml += '</div>'
